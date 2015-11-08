@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="NixFifty_ExcludeRss" title="NixFifty: Exclude RSS" version_string="1.0.0" version_id="1000000" url="https://pixelexit.com" install_callback_class="NixFifty_ExcludeRss_Install" install_callback_method="install" uninstall_callback_class="NixFifty_ExcludeRss_Install" uninstall_callback_method="uninstall">
+  <admin_navigation/>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates/>
+  <admin_template_modifications>
+    <modification template="forum_edit" modification_key="nixfifty_excluderss_forum_edit" description="" execution_order="10" enabled="1" action="str_replace">
+      <find><![CDATA[<xen:option name="find_new" label="{xen:phrase include_forum_in_find_new_threads}" selected="{$forum.find_new}">
+					<xen:hint>{xen:phrase if_disabled_messages_will_never_appear_in_find_new_threads}</xen:hint>
+				</xen:option>]]></find>
+      <replace><![CDATA[$0
+<xen:option name="exclude_rss" label="{xen:phrase nixfifty_excluderss_exclude_forum_from_global_rss}" selected="{$forum.exclude_rss}">
+	<xen:hint>{xen:phrase nixfifty_excluderss_if_enabled_messages_will_not_appear_in_global_rss}</xen:hint>
+</xen:option>]]></replace>
+    </modification>
+  </admin_template_modifications>
+  <code_events/>
+  <code_event_listeners>
+    <listener event_id="load_class_controller" execute_order="10" callback_class="NixFifty_ExcludeRss_Listen" callback_method="loadForumController" active="1" hint="XenForo_ControllerPublic_Forum" description="Listens for the XenForo_ControllerPublic_Forum class."/>
+    <listener event_id="load_class_controller" execute_order="10" callback_class="NixFifty_ExcludeRss_Listen" callback_method="loadForumControllerAdmin" active="1" hint="XenForo_ControllerAdmin_Forum" description="Listens for the XenForo_ControllerAdmin_Forum class."/>
+    <listener event_id="load_class_datawriter" execute_order="10" callback_class="NixFifty_ExcludeRss_Listen" callback_method="loadForumDataWriter" active="1" hint="XenForo_DataWriter_Forum" description="Listens for the XenForo_DataWriter_Forum class."/>
+  </code_event_listeners>
+  <cron/>
+  <email_templates/>
+  <email_template_modifications/>
+  <optiongroups/>
+  <permissions>
+    <permission_groups/>
+    <permissions/>
+    <interface_groups/>
+  </permissions>
+  <phrases>
+    <phrase title="nixfifty_excluderss_exclude_forum_from_global_rss" version_id="1000000" version_string="1.0.0"><![CDATA[Exclude this forum from the global RSS feed]]></phrase>
+    <phrase title="nixfifty_excluderss_if_enabled_messages_will_not_appear_in_global_rss" version_id="1000000" version_string="1.0.0"><![CDATA[If enabled, messages posted in this forum will not appear in the global RSS feed.]]></phrase>
+  </phrases>
+  <route_prefixes/>
+  <style_properties/>
+  <templates/>
+  <public_template_modifications/>
+  <bb_code_media_sites/>
+  <bb_codes/>
+</addon>
